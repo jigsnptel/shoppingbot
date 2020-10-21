@@ -1,0 +1,582 @@
+{
+  "intents": [
+    {
+      "intent": "Enquiry",
+      "examples": [
+        {
+          "text": "Any discounts"
+        },
+        {
+          "text": "Any discounts or offers available ?"
+        },
+        {
+          "text": "Any offers"
+        },
+        {
+          "text": "Display the list of items"
+        },
+        {
+          "text": "ga"
+        },
+        {
+          "text": "List of items"
+        },
+        {
+          "text": "Show the List of items in the store"
+        },
+        {
+          "text": "What items are available in your store"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greetings",
+      "examples": [
+        {
+          "text": "Good Afternoon"
+        },
+        {
+          "text": "Good Evening"
+        },
+        {
+          "text": "Good Morning"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "order",
+      "examples": [
+        {
+          "text": "I wish to place an order"
+        },
+        {
+          "text": "please take my order"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "welcome",
+      "examples": [
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "Hi, I need help to shop for essentials"
+        },
+        {
+          "text": "kindly help me with shopping"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Enquiry",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Discounts",
+          "synonyms": [
+            "offers"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "items",
+          "synonyms": [
+            "list of items"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Greetings",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Good Afternoon",
+          "synonyms": [
+            "GA"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good evening",
+          "synonyms": [
+            "GE"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good Morning",
+          "synonyms": [
+            "GM"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "items",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "beet",
+          "synonyms": [
+            "beetroot"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "bitter gourd",
+          "synonyms": [
+            "karela"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Brinjal",
+          "synonyms": [
+            "baigan"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "capsicum",
+          "synonyms": [
+            "simla mirch"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "gavar",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "ginger",
+          "synonyms": [
+            "adarak"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "green peas",
+          "synonyms": [
+            "mutter"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "order",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "order",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "payment",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "card",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "UPI",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-number",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "welcome",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Welcome",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Welcome, how can I help you"
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_10_1602864761336",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Enter item name. pls check items list."
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_1_1602864832507",
+      "event_name": "focus",
+      "dialog_node": "handler_10_1602864832524",
+      "previous_sibling": "handler_1_1602864832524"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1602864832507",
+      "context": {
+        "items": "@items"
+      },
+      "conditions": "@items",
+      "event_name": "input",
+      "dialog_node": "handler_1_1602864832524"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "How many do you want(in Kg)?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_7_1602864935061",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1602864935064",
+      "previous_sibling": "handler_9_1602864935064"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_4_1602930932697",
+      "event_name": "input",
+      "dialog_node": "handler_4_1602930932704"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_4_1602930932697",
+      "event_name": "focus",
+      "dialog_node": "handler_6_1602930932704",
+      "previous_sibling": "handler_4_1602930932704"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_3_1602864994714",
+      "context": {
+        "payment": "@payment"
+      },
+      "conditions": "@payment",
+      "event_name": "input",
+      "dialog_node": "handler_8_1602864994724"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_7_1602864935061",
+      "context": {
+        "number": "@sys-number"
+      },
+      "conditions": "@sys-number",
+      "event_name": "input",
+      "dialog_node": "handler_9_1602864935064"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "we accept card or UPI . What is the mode of payment ?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_3_1602864994714",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1602864994724",
+      "previous_sibling": "handler_8_1602864994724"
+    },
+    {
+      "type": "frame",
+      "title": "order",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you. Your order of $number Kg of $items is placed. please pay using $payment"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#order || @order:order",
+      "digress_in": "returns",
+      "dialog_node": "node_10_1602864761336",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1602860069843",
+      "digress_out_slots": "allow_returning"
+    },
+    {
+      "type": "standard",
+      "title": "Enquiry",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Enquiry || @Enquiry",
+      "digress_in": "returns",
+      "dialog_node": "node_1_1602860069843",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_7_1602829397806"
+    },
+    {
+      "type": "standard",
+      "title": "deletingcontext",
+      "output": {
+        "deleted": "<?context.remove('items')?><?context.remove('number')?><?context.remove('payment')?>",
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1602864761336",
+      "conditions": "true",
+      "dialog_node": "node_3_1602865536424"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Greetings || @Greetings",
+      "dialog_node": "node_7_1602829397806",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Evening"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1602829397806",
+      "conditions": "@Greetings:(Good evening)",
+      "dialog_node": "response_10_1602829543054",
+      "previous_sibling": "response_1_1602829472701"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Morning"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1602829397806",
+      "conditions": "@Greetings:(Good Morning)",
+      "dialog_node": "response_1_1602829472701"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "title": "list",
+            "source": "https://cdn.yourstory.com/wp-content/uploads/2012/09/Vegetablesonwheels-price-list.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_1_1602860069843",
+      "conditions": "@Enquiry:items",
+      "dialog_node": "response_1_1602860108727"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Afternoon"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1602829397806",
+      "conditions": "@Greetings:(Good Afternoon)",
+      "dialog_node": "response_8_1602829565544",
+      "previous_sibling": "response_10_1602829543054"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "10% off on all vegetables"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1602860069843",
+      "conditions": "@Enquiry:Discounts",
+      "dialog_node": "response_8_1602860902243",
+      "previous_sibling": "response_1_1602860108727"
+    },
+    {
+      "type": "slot",
+      "parent": "node_10_1602864761336",
+      "variable": "$items",
+      "dialog_node": "slot_1_1602864832507",
+      "previous_sibling": "node_3_1602865536424"
+    },
+    {
+      "type": "slot",
+      "parent": "node_10_1602864761336",
+      "variable": "$payment",
+      "dialog_node": "slot_3_1602864994714",
+      "previous_sibling": "slot_7_1602864935061"
+    },
+    {
+      "type": "slot",
+      "parent": "node_10_1602864761336",
+      "dialog_node": "slot_4_1602930932697",
+      "previous_sibling": "slot_3_1602864994714"
+    },
+    {
+      "type": "slot",
+      "parent": "node_10_1602864761336",
+      "variable": "$number",
+      "dialog_node": "slot_7_1602864935061",
+      "previous_sibling": "slot_1_1602864832507"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi,  I am shopping chatbot. I can display a list, discounts and take an order."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#welcome || @welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "shop for essentials",
+  "language": "en",
+  "description": "This chatbot will help to display items in the store with prices, offers and discounts and will help user to place order"
+}
